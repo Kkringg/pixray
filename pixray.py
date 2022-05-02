@@ -376,7 +376,7 @@ def fetch_spot_indexes(sideX, sideY):
     if cache_key not in cached_spot_indexes:
         if global_spot_file is not None:
             if 'http' in global_spot_file:
-                mask_image = [Image.open(urlopen(global_spot_file))]
+                mask_image = Image.open(urlopen(global_spot_file))
             else:
                 mask_image = Image.open(global_spot_file)
         elif global_aspect_width != 1:
