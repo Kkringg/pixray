@@ -704,6 +704,7 @@ def do_init(args):
 
             init_image_rgba_list = []
             final_init_image = starting_image.copy()
+            top_image_list = []
 
             for init_image in init_images:
                 # this version is needed potentially for the loss function
@@ -719,13 +720,17 @@ def do_init(args):
                 top_image = init_image_rgba.copy()
                 if args.init_image_alpha and args.init_image_alpha >= 0:
                     top_image.putalpha(args.init_image_alpha)
+                    top_image_list.append(top_image)
                 cur_start_image = starting_image.copy()
                 cur_start_image.paste(top_image, (0, 0), top_image)
-                final_init_image.paste(top_image, (0, 0), top_image)
+                # final_init_image.paste(top_image, (0, 0), top_image)
                 # final_init_image.paste(top_image)
                 # cur_start_image.paste(top_image)
                 init_image_rgba_list.append(cur_start_image)
 
+            for paste_image in top_image_list:
+                final_init_image.paste(paste_image, (0, 0), paste_image)
+                
             #starting_image = init_image_rgba_list[0]
             starting_image = final_init_image.copy()
             starting_image.save("starting_image.png")
