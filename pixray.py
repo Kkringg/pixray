@@ -692,7 +692,10 @@ def do_init(args):
             # now we might overlay an init image
             filelist = None
             if 'http' in args.init_image:
-                init_images = [Image.open(urlopen(init_image)) for init_image in args.init_image]
+                #init_images = [Image.open(urlopen(init_image)) for init_image in args.init_image]
+                for init_image in args.init_image:
+                    new_image = Image.open(urlopen(init_image))
+                    init_images.append(new_image)
             else:
                 filelist = real_glob(args.init_image)
                 init_images = [Image.open(f) for f in filelist]
