@@ -698,6 +698,8 @@ def do_init(args):
                 init_images = [Image.open(f) for f in filelist]
 
             init_image_rgba_list = []
+            final_init_image = starting_image.copy()
+
             for init_image in init_images:
                 # this version is needed potentially for the loss function
                 init_image_rgb = init_image.convert('RGB')
