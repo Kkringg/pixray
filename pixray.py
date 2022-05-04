@@ -707,6 +707,7 @@ def do_init(args):
                 init_image_tensor = TF.to_tensor(init_image_rgb)
                 init_image_tensor = init_image_tensor.to(device).unsqueeze(0)
 
+            for init_image in init_images:
                 # this version gets overlaid on the background (noise)
                 init_image_rgba = init_image.convert('RGBA')
                 init_image_rgba = init_image_rgba.resize((sideX, sideY), Image.LANCZOS)
@@ -715,10 +716,12 @@ def do_init(args):
                     top_image.putalpha(args.init_image_alpha)
                 cur_start_image = starting_image.copy()
                 cur_start_image.paste(top_image, (0, 0), top_image)
+                final_init_image.paste(top_image, (0, 0), top_image)
                 # cur_start_image.paste(top_image)
                 init_image_rgba_list.append(cur_start_image)
 
-            starting_image = init_image_rgba_list[0]
+            #starting_image = init_image_rgba_list[0]
+            starting_image = final_init_image.copy()
             starting_image.save("starting_image.png")
             
             # cur_start_image.save("starting_image.png")
