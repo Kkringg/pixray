@@ -711,9 +711,9 @@ def do_init(args):
                 top_image = init_image_rgba.copy()
                 if args.init_image_alpha and args.init_image_alpha >= 0:
                     top_image.putalpha(args.init_image_alpha)
-                # cur_start_image = starting_image.copy()
+                cur_start_image = starting_image.copy()
                 cur_start_image.paste(top_image, (0, 0), top_image)
-                cur_start_image.paste(top_image)
+                # cur_start_image.paste(top_image)
                 init_image_rgba_list.append(cur_start_image)
 
             # starting_image = init_image_rgba_list[0]
