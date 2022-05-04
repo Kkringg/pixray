@@ -717,9 +717,12 @@ def do_init(args):
                 init_image_rgba_list.append(cur_start_image)
 
             starting_image = init_image_rgba_list[0]
-
-            save_image(init_image_tensor,"init_image_tensor.png")
-            drawer.init_from_tensor(init_image_tensor * 2 - 1)
+            starting_image.save("starting_image.png")
+            starting_tensor = TF.to_tensor(starting_image)
+            init_tensor = starting_tensor.to(device).unsqueeze(0)
+            drawer.init_from_tensor(init_tensor * 2 - 1)
+            # save_image(init_image_tensor,"init_image_tensor.png")
+            # drawer.init_from_tensor(init_image_tensor * 2 - 1)
             z_orig = drawer.get_z_copy()
         else:
             starting_image.save("starting_image.png")
