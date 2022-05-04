@@ -685,6 +685,9 @@ def do_init(args):
             img = old_random_noise_image(args.size[0], args.size[1])
         else:
             img = Image.new(mode="RGB", size=(args.size[0], args.size[1]), color=(255, 255, 255))
+        noise_image = img.copy()
+        noise_image = noise_image.convert('RGBA')
+        noise_image = noise_image.resize((sideX, sideY), Image.LANCZOS)
         starting_image = img.convert('RGB')
         starting_image = starting_image.resize((sideX, sideY), Image.LANCZOS)
 
@@ -692,10 +695,6 @@ def do_init(args):
             # now we might overlay an init image
             filelist = None
             if 'http' in args.init_image:
-                #init_images = [Image.open(urlopen(init_image)) for init_image in args.init_image]
-                #for init_image in args.init_image:
-                #    new_image = Image.open(urlopen(init_image))
-                #    init_images.append(new_image)
                 image_urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', args.init_image)
                 init_images = [Image.open(urlopen(image_url)) for image_url in image_urls]
             else:
@@ -703,7 +702,7 @@ def do_init(args):
                 init_images = [Image.open(f) for f in filelist]
 
             init_image_rgba_list = []
-            final_init_image = starting_image.copy()
+            # final_init_image = noise_image.copy()
             top_image_list = []
 
             for init_image in init_images:
@@ -720,27 +719,24 @@ def do_init(args):
                 top_image = init_image_rgba.copy()
                 if args.init_image_alpha and args.init_image_alpha >= 0:
                     top_image.putalpha(args.init_image_alpha)
-                    top_image_list.append(top_image)
+                top_image_list.append(top_image)
                 cur_start_image = starting_image.copy()
                 cur_start_image.paste(top_image, (0, 0), top_image)
-                # final_init_image.paste(top_image, (0, 0), top_image)
-                # final_init_image.paste(top_image)
-                # cur_start_image.paste(top_image)
                 init_image_rgba_list.append(cur_start_image)
 
             for paste_image in top_image_list:
-                final_init_image.paste(paste_image, (0, 0), paste_image)
+                # final_init_image.paste(paste_image, (0, 0), paste_image)
+                noise_image.paste(paste_image, (0, 0), paste_image)
                 
-            #starting_image = init_image_rgba_list[0]
-            starting_image = final_init_image.copy()
+            # starting_image = final_init_image.copy()
+            starting_image = noise_image.copy()
             starting_image.save("starting_image.png")
-            
-            # cur_start_image.save("starting_image.png")
             starting_tensor = TF.to_tensor(starting_image)
             init_tensor = starting_tensor.to(device).unsqueeze(0)
             drawer.init_from_tensor(init_tensor * 2 - 1)
-            #save_image(starting_image,"init_image_tensor.png")
-            #drawer.init_from_tensor(init_image_tensor * 2 - 1)
+            # starting_image = init_image_rgba_list[0]            --original
+            # save_image(starting_image,"init_image_tensor.png")  --original
+            # drawer.init_from_tensor(init_image_tensor * 2 - 1)  --original
             z_orig = drawer.get_z_copy()
         else:
             starting_image.save("starting_image.png")
