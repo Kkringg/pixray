@@ -684,7 +684,8 @@ def do_init(args):
 
     # Image initialisation\
     if args.init_noise == 'fft':
-        drawer.init_from_tensor(init_tensor=None)
+        # drawer.init_from_tensor(init_tensor=None)
+        fft_init_from_tensor()
         
     elif args.init_image or args.init_noise:
         # setup init image wih pil
