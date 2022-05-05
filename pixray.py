@@ -195,6 +195,13 @@ def old_random_noise_image(w,h):
     random_image = Image.fromarray(np.random.randint(0,255,(w,h,3),dtype=np.dtype('uint8')))
     return random_image
 
+def fft_init_from_tensor(self):
+    shape = [1, 3, self.canvas_height, self.canvas_width]
+    resume = None
+    params, image_f, sz = fft_image(shape, sd=0.01, decay_power=self.decay, resume=resume)
+    self.params = params
+    self.image_f = to_valid_rgb(image_f, colors=1.5)
+    
 def NormalizeData(data):
     return (data - np.min(data)) / (np.max(data) - np.min(data))
 
