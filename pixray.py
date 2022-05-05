@@ -18,6 +18,8 @@ import os.path
 from omegaconf import OmegaConf
 import hashlib
 
+from aphantasia.image import to_valid_rgb, fft_image, dwt_image, pixel_image # <-- Attempting to create FFT init_noise
+
 import time
 import torch
 from torch import nn, optim
