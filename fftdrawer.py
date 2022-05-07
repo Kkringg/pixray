@@ -61,26 +61,26 @@ class FftDrawer(DrawingInterface):
             raise ValueError(f"fft drawer does not know how to apply fft_use={self.fft_use}")
         self.params = params
         self.image_f = to_valid_rgb(image_f, colors=1.5)
-        test_image = self.image_f()
-        test_image = test_image.convert('RGBA')
-        test_image = test_image.resize((sideX, sideY), Image.LANCZOS)
-        init_images = []
-        top_image_list = []
-        if args.init_image:
-            if 'http' in args.init_image:
-                image_urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', args.init_image)
-                init_images = [Image.open(urlopen(image_url)) for image_url in image_urls]
+        # test_image = self.image_f()
+        # test_image = test_image.convert('RGBA')
+        # test_image = test_image.resize((sideX, sideY), Image.LANCZOS)
+        # init_images = []
+        # top_image_list = []
+        # if args.init_image:
+        #     if 'http' in args.init_image:
+        #         image_urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', args.init_image)
+        #         init_images = [Image.open(urlopen(image_url)) for image_url in image_urls]
                 
-            for init_image in init_images:
-                # this version gets overlaid on the background (noise)
-                init_image_rgba = init_image.convert('RGBA')
-                init_image_rgba = init_image_rgba.resize((sideX, sideY), Image.LANCZOS)
-                top_image = init_image_rgba.copy()
-                top_image_list.append(top_image)
+        #     for init_image in init_images:
+                  # this version gets overlaid on the background (noise)
+        #         init_image_rgba = init_image.convert('RGBA')
+        #         init_image_rgba = init_image_rgba.resize((sideX, sideY), Image.LANCZOS)
+        #         top_image = init_image_rgba.copy()
+        #         top_image_list.append(top_image)
             
-            for paste_image in top_image_list:
-                # final_init_image.paste(paste_image, (0, 0), paste_image)
-                test_image.paste(paste_image, (0, 0), paste_image)
+        #     for paste_image in top_image_list:
+                  # final_init_image.paste(paste_image, (0, 0), paste_image)
+        #         test_image.paste(paste_image, (0, 0), paste_image)
                 
             # self.image_f = test_image
                 
