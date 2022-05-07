@@ -6,6 +6,8 @@ from aphantasia.image import to_valid_rgb, fft_image, dwt_image, pixel_image
 import torch
 from util import str2bool
 
+from numpy.lib.function_base import copy
+
 # canonical interpolation function, like https://p5js.org/reference/#/p5/map
 def map_number(n, start1, stop1, start2, stop2):
   return ((n-start1)/(stop1-start1))*(stop2-start2)+start2;
