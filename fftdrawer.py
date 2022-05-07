@@ -7,6 +7,7 @@ import torch
 from util import str2bool
 
 from numpy.lib.function_base import copy
+from PIL import Image
 
 # canonical interpolation function, like https://p5js.org/reference/#/p5/map
 def map_number(n, start1, stop1, start2, stop2):
