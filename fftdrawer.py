@@ -62,8 +62,8 @@ class FftDrawer(DrawingInterface):
         self.params = params
         self.image_f = to_valid_rgb(image_f, colors=1.5)
         test_image = self.image_f()
-        # test_image = test_image.convert('RGBA')
-        # test_image = test_image.resize((sideX, sideY), Image.LANCZOS)
+        test_image = test_image.convert('RGBA')
+        test_image = test_image.resize((sideX, sideY), Image.LANCZOS)
         # init_images = []
         # top_image_list = []
         # if args.init_image:
