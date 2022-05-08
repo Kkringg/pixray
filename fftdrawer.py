@@ -65,8 +65,8 @@ class FftDrawer(DrawingInterface):
         self.params = params
         self.image_f = to_valid_rgb(image_f, colors=1.5)
         
-        test_image = self.image_f()
-        tf.keras.preprocessing.image.save_img('TestImage.png',test_image)
+        # test_image = self.image_f()
+        # tf.keras.preprocessing.image.save_img('TestImage.png',test_image)
         # test_image2 = Image.fromarray(test_image)
         # test_image2.save('TestImage.png', format='PNG')
         
