@@ -684,10 +684,11 @@ def do_init(args):
 
     # Image initialisation\
     if args.init_noise == 'fft':
+        drawer.init_from_tensor(init_tensor=None)
         out = drawer.synth(cur_iteration=-1)
         test_image = TF.to_pil_image(out.cpu())
         test_image.save("test_image.png")
-        drawer.init_from_tensor(init_tensor=None)
+        #drawer.init_from_tensor(init_tensor=None)
         #drawer.fft_init_from_tensor()
         
     elif args.init_image or args.init_noise:
