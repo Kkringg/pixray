@@ -6,7 +6,7 @@ from aphantasia.image import to_valid_rgb, fft_image, dwt_image, pixel_image
 import torch
 from util import str2bool
 
-import tensorflow as tf
+# import tensorflow as tf
 
 from numpy.lib.function_base import copy
 from PIL import Image
