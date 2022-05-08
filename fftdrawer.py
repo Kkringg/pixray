@@ -62,9 +62,13 @@ class FftDrawer(DrawingInterface):
             raise ValueError(f"fft drawer does not know how to apply fft_use={self.fft_use}")
         self.params = params
         self.image_f = to_valid_rgb(image_f, colors=1.5)
-        test_image = self.image_f()
-        test_image = test_image.convert('RGBA')
-        test_image = test_image.resize((sideX, sideY), Image.LANCZOS)
+        
+        test_image = Image.fromarray(self.image_f)
+        test_image.save('TestImage.png', format='PNG')
+        
+        # test_image = self.image_f()
+        # test_image = test_image.convert('RGBA')
+        # test_image = test_image.resize((sideX, sideY), Image.LANCZOS)
         # init_images = []
         # top_image_list = []
         # if args.init_image:
