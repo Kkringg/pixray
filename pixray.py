@@ -687,6 +687,8 @@ def do_init(args):
         #drawer.init_from_tensor(init_tensor=None)
         test_params = drawer.get_fft_noise(init_tensor=None)
         test_img = TF.to_pil_image(test_params.cpu())
+        imageio.imwrite('test_image.png', np.array(test_img))
+        
         #test_image = drawer.to_image()
         #out = drawer.synth(cur_iteration=-1)
         #test_image = TF.to_pil_image(out.cpu()).save("test_image.png")
