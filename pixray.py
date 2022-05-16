@@ -684,8 +684,8 @@ def do_init(args):
 
     # Image initialisation\
     if args.init_noise == 'fft':
-        shape = [1, 3, args.size[1], args.size[0]]
-        test_params_shape = [*shape[:3], shape[3]//2+1, 2] # [1,3,512,257,2] for 512x512 (2 for imaginary and real components)
+        test_shape = [1, 3, args.size[1], args.size[0]]
+        test_params_shape = [*test_shape[:3], test_shape[3]//2+1, 2] # [1,3,512,257,2] for 512x512 (2 for imaginary and real components)
         test_params = 0.01 * torch.randn(*test_params_shape).cuda()
         
         img1 = test_params[0]
