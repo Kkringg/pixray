@@ -683,7 +683,7 @@ def do_init(args):
     target_image_tensor = None
 
     # Image initialisation\
-    if args.init_noise == 'fft':
+    if args.drawer == 'fft':
         test_shape = [1, 3, args.size[1], args.size[0]]
         #test_shape_2 = torch.rand(1, 3, args.size[1], args.size[0])
         test_shape_2 = torch.randn(1, 3, args.size[1], args.size[0]).cuda()
