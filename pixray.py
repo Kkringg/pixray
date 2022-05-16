@@ -709,7 +709,7 @@ def do_init(args):
         #drawer.init_from_tensor(init_tensor=None)
         #drawer.fft_init_from_tensor()
         
-    elif args.init_image or args.init_noise:
+    if args.init_image or args.init_noise:
         # setup init image wih pil
         # first - always start with noise or blank
         if args.init_noise == 'pixels':
