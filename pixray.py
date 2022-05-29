@@ -684,7 +684,14 @@ def do_init(args):
 
     # Image initialisation\
     if args.drawer == 'fft':
-        #test_shape = [1, 3, args.size[1], args.size[0]]
+        # new 5/28
+        test_shape = [1, 3, args.size[1], args.size[0]]
+        test_params_shape = [*test_shape[:3], test_shape[3]//2+1, 2]
+        test_params = 0.01 * torch.randn(*test_params_shape).cuda()
+        test_size = None
+        
+        
+        
         #test_shape_2 = torch.rand(1, 3, args.size[1], args.size[0])
         test_shape = torch.randn(1, 3, args.size[1], args.size[0]).cuda()
         test_shape_2 = 0.01 * torch.randn(1, 3, args.size[1], args.size[0]).cuda()
