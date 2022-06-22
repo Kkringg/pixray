@@ -1288,7 +1288,7 @@ def do_synth_and_filter(args, cur_iteration, loss_list, to_file=False):
                 loss_list += weighted_losses
 
 
-    #alpha = None
+    alpha = None
     # flatten to 3 channel
     _B,C,_H,_W = out.shape
     # if C == 4:
@@ -1446,10 +1446,10 @@ def ascend_txt(args):
         "embeds": iii,
     }
 
-    if img_alpha is not None and args.transparent_weight != 0:
-        t_loss = args.transparent_weight*torch.mean(img_alpha)
-        # print(f"with weight {args.transparent_weight} the loss is {t_loss}")
-        result.append(t_loss)
+    # if img_alpha is not None and args.transparent_weight != 0:
+    #     t_loss = args.transparent_weight*torch.mean(img_alpha)
+    #     # print(f"with weight {args.transparent_weight} the loss is {t_loss}")
+    #     result.append(t_loss)
     
     if args.custom_loss is not None and len(args.custom_loss)>0:
         for t in args.custom_loss:
