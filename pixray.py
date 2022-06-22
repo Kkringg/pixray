@@ -751,7 +751,8 @@ def do_init(args):
 
             for init_image in init_images:
                 # this version is needed potentially for the loss function
-                init_image_rgb = init_image.convert('RGB')
+                # init_image_rgb = init_image.convert('RGB')
+                init_image_rgb = init_image.convert('RGBA')
                 init_image_rgb = init_image_rgb.resize((sideX, sideY), Image.LANCZOS)
                 init_image_tensor = TF.to_tensor(init_image_rgb)
                 init_image_tensor = init_image_tensor.to(device).unsqueeze(0)
