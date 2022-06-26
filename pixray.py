@@ -1291,18 +1291,18 @@ def do_synth_and_filter(args, cur_iteration, loss_list, to_file=False):
     alpha = None
     # flatten to 3 channel
     _B,C,_H,_W = out.shape
-    # if C == 4:
-    #    colors = out[:,0:3,:,:]
-    #    if args.transparent:
-    #        if not to_file:
-    #            # random squash
-    #            # print(f"Flattening {out.shape} on {global_fill_color[0]}")
-    #            alpha = out[:,3,:,:]
-    #            bg_shade = global_fill_color[0] * torch.ones(size=(_B,3,_H,_W), device=device, dtype=torch.float)
-    #            out = alpha * colors + (1 - alpha) * bg_shade
-    #            TF.to_pil_image(out[0].cpu()).save("flat.png")
-    #    else:
-    #        out = colors
+    if C == 4:
+       colors = out[:,0:3,:,:]
+       if args.transparent:
+           if not to_file:
+               # random squash
+               # print(f"Flattening {out.shape} on {global_fill_color[0]}")
+               alpha = out[:,3,:,:]
+               bg_shade = global_fill_color[0] * torch.ones(size=(_B,3,_H,_W), device=device, dtype=torch.float)
+               out = alpha * colors + (1 - alpha) * bg_shade
+               TF.to_pil_image(out[0].cpu()).save("flat.png")
+       else:
+           out = colors
 
     return out, alpha
 
