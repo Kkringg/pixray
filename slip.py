@@ -183,7 +183,8 @@ class SLIP_Base():
 BLIP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "BLIP/models")
 # print("APPENDING PATH ", SLIP_PATH)
 sys.path.append(BLIP_PATH)
-from blip import blip_feature_extractor
+import blip
+#from blip import blip_feature_extractor
 from collections import namedtuple
 
 class BLIP_Base():
