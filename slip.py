@@ -180,7 +180,7 @@ class SLIP_Base():
         text_embeddings = text_embeddings / text_embeddings.norm(dim=-1, keepdim=True)
         return text_embeddings.unsqueeze(1)
         
-BLIP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "BLIP")
+BLIP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "BLIP/models")
 # print("APPENDING PATH ", SLIP_PATH)
 sys.path.append(BLIP_PATH)
 from blip import blip_feature_extractor
