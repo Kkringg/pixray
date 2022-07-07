@@ -15,6 +15,13 @@ all_slip_models =  ["SLIP_VITS16", "SLIP_VITB16", "SLIP_VITL16",
                     "SIMCLR_VITS16",
                     "CLIP_VITS16", "CLIP_VITB16", "CLIP_VITL16"]
 
+all_blip_models = {"BLIP_BASE": "model_base.pth",
+                   "BLIP_BASE_14M": "model_base_14M.pth",
+                   "BLIP_LARGE": "model_large.pth"}
+
+blip_vit_types  = {"BLIP_BASE": "base",
+                   "BLIP_BASE_14M": "base",
+                   "BLIP_LARGE": "large"}
 
 from util import wget_file
 
@@ -67,19 +74,21 @@ class CLIP_Base():
 
     def encode_text(self, text):
         text = clip.tokenize(text).to(self.device)
-        return self.model.encode_text(text).float()
+        text_embedding = self.model.encode_text(text).float()
+        return text_embedding
 
     def encode_texts(self, texts):
         text_embeddings = torch.stack([self.model.encode_text(clip.tokenize(text).to(self.device)).detach().clone() for text in texts])
-        return text_embeddings / text_embeddings.norm(dim=-1, keepdim=True)
+        te_normed = text_embeddings / text_embeddings.norm(dim=-1, keepdim=True)
+        return te_normed
 
 # TODO: this is very hacky, must fix this later (submodule dependency)
-SLIP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'SLIP')
+# SLIP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'SLIP')
 # print("APPENDING PATH ", SLIP_PATH)
-sys.path.append(SLIP_PATH)
-import models
-from tokenizer import SimpleTokenizer
-import utils
+#sys.path.append(SLIP_PATH)
+#import models
+#from tokenizer import SimpleTokenizer
+#import utils
 
 class SLIP_Base():
     def __init__(self, model_name, device):
@@ -169,6 +178,74 @@ class SLIP_Base():
         text_embeddings = text_embeddings / text_embeddings.norm(dim=-1, keepdim=True)
         return text_embeddings.unsqueeze(1)
         
+BLIP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'BLIP')
+# print("APPENDING PATH ", SLIP_PATH)
+sys.path.append(BLIP_PATH)
+from models.blip import blip_feature_extractor
+from collections import namedtuple
+
+class BLIP_Base():
+    def __init__(self, model_name, device):
+        self.device = device
+        FakeImage = namedtuple('FakeImage', 'device')
+        self.fake_image = FakeImage(device=device)
+
+        self.input_resolution = 224
+
+        if model_name in all_blip_models:
+            ckpt_file = all_blip_models[model_name]
+        else:
+            print(f"blip model {model_name} not known, aborting")
+            sys.exit(1)
+
+        ckpt_path = f"models/blip_{ckpt_file}"
+        url = f"https://storage.googleapis.com/sfr-vision-language-research/BLIP/models/{ckpt_file}"
+        #TODO: model should load ckpt_path not url
+        # if not os.path.exists(ckpt_path):
+        #     wget_file(url, ckpt_path)
+
+        self.preprocess_transform = transforms.Compose([
+                transforms.Resize((self.input_resolution,self.input_resolution),interpolation=transforms.InterpolationMode.BICUBIC),
+                transforms.Normalize((0.48145466, 0.4578275, 0.40821073), (0.26862954, 0.26130258, 0.27577711))
+            ])
+
+        model = blip_feature_extractor(pretrained=url, image_size=224, vit=blip_vit_types[model_name])
+        # model.eval()
+        model = model.to(device)
+
+        n_params = sum(p.numel() for p in model.parameters())
+        print("Loaded perceptor %s: %.2fM params" %(model_name, (n_params/1000000)))
+
+        self.model = model
+
+    def preprocess(self, imgs, input_range = None):
+        imgs = adjust_range(imgs, [0.,1.], input_range = input_range)
+        return self.preprocess_transform(imgs)
+
+    def encode_image(self, imgs, input_range = None, apply_preprocess = True):
+        if apply_preprocess:
+            imgs = self.preprocess(imgs, input_range = input_range)
+
+        image_features = self.model(imgs, '', mode='image')
+        # print("IF", image_features.shape)
+        dim = image_features.shape[2]
+        image_features = image_features[0][0].reshape(1, dim)
+        return image_features
+
+    def encode_text(self, texts):
+        text_features = self.model(self.fake_image, texts, mode='text')
+        # print("TF", text_features.shape)
+        dim = text_features.shape[2]
+        text_features = text_features[0][0].detach().clone().reshape(1, dim)
+        return text_features
+
+    def encode_texts(self, texts):
+        print("THIS IS NEVER CALLED?")
+        sys.exit(1)
+        text_features = self.model(self.fake_image, texts, mode='text')
+        text_features = text_features[0][0].reshape(1, 768)
+        return text_features.unsqueeze(1)
+        
 
 def get_clip_perceptor(clip_model_name, device):
     if clip_model_name in clip.available_models() or clip_model_name == "ViT-L/14@336px":
@@ -179,7 +256,8 @@ def get_clip_perceptor(clip_model_name, device):
         in_res = perceptor.visual.input_resolution
         print(f"Loaded CLIP {clip_model_name}: {in_res}x{in_res} and {n_params/1000000:.2f}M params")
         clip_perceptor = CLIP_Base(perceptor, preprocess, device)
-
+    elif clip_model_name in all_blip_models:
+        clip_perceptor = BLIP_Base(clip_model_name, device)
     else:
         clip_perceptor = SLIP_Base(clip_model_name, device)
 
