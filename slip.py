@@ -83,12 +83,12 @@ class CLIP_Base():
         return te_normed
 
 # TODO: this is very hacky, must fix this later (submodule dependency)
-# SLIP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'SLIP')
+ SLIP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'SLIP')
 # print("APPENDING PATH ", SLIP_PATH)
-#sys.path.append(SLIP_PATH)
-#import models
-#from tokenizer import SimpleTokenizer
-#import utils
+sys.path.append(SLIP_PATH)
+import models
+from tokenizer import SimpleTokenizer
+import utils
 
 class SLIP_Base():
     def __init__(self, model_name, device):
