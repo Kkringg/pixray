@@ -10,6 +10,8 @@ from torchvision import transforms
 
 from clip import clip
 
+import collections
+
 all_slip_models =  ["SLIP_VITS16", "SLIP_VITB16", "SLIP_VITL16",
                     "SLIP_CC3M", "SLIP_CC12M",
                     "SIMCLR_VITS16",
