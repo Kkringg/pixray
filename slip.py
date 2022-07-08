@@ -187,7 +187,7 @@ print(sys.path)
 print(SLIP_PATH)
 print(BLIP_PATH)
 sys.path.append(BLIP_PATH)
-import blip
+#import blip
 #from blip import blip_feature_extractor
 from collections import namedtuple
 
