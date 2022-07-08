@@ -4,3 +4,6 @@
 [submodule "SLIP"]
 	path = SLIP
 	url = https://github.com/facebookresearch/SLIP
+[submodule "BLIP"]
+	path = BLIP
+	url = https://github.com/salesforce/BLIP
