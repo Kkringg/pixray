@@ -1685,7 +1685,7 @@ def do_run(args, return_display=False):
                         cur_iteration += 1
                         if not hasattr(args, 'skip_args'):
                             pbar.update()
-                        if keep_going and return_display: # and cur_iteration % args.display_every == 0:
+                        if keep_going and return_display and cur_iteration % args.display_every == 0:
                             # print("Returning after iteration ", cur_iteration)
                             return False
                     except RuntimeError as e:
