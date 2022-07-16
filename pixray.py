@@ -502,12 +502,21 @@ class MakeCutouts(nn.Module):
             #         j_wide = j + self.cutn_zoom
             #         TF.to_pil_image(batch[j_wide].cpu()).save(f"cached_im_{cur_iteration:02d}_{j_wide:02d}_{spot}.png")
         else:
-            batch1, transforms1 = self.augs_zoom(torch.cat(cutouts[:self.cutn_zoom], dim=0))
-            batch2, transforms2 = self.augs_wide(torch.cat(cutouts[self.cutn_zoom:], dim=0))
+            if self.cutn == 1:
+                batch, transforms = self.augs_wide(torch.cat(cutouts[:], dim=0))
+                self.transforms = transforms
+            else:
+                batch1, transforms1 = self.augs_zoom(torch.cat(cutouts[:self.cutn_zoom], dim=0))
+                batch2, transforms2 = self.augs_wide(torch.cat(cutouts[self.cutn_zoom:], dim=0))
+                batch = torch.cat([batch1, batch2])
+                self.transforms = torch.cat([transforms1, transforms2])
+                
+            # batch1, transforms1 = self.augs_zoom(torch.cat(cutouts[:self.cutn_zoom], dim=0)) kkr 7/16/22
+            # batch2, transforms2 = self.augs_wide(torch.cat(cutouts[self.cutn_zoom:], dim=0)) kkr 7/16/22
             # print(batch1.shape, batch2.shape)
-            batch = torch.cat([batch1, batch2])
+            # batch = torch.cat([batch1, batch2])                                              kkr 7/16/22
             # print(batch.shape)
-            self.transforms = torch.cat([transforms1, transforms2])
+            # self.transforms = torch.cat([transforms1, transforms2])                          kkr 7/16/22
             ## batch, self.transforms = self.augs(torch.cat(cutouts, dim=0))
             # if cur_iteration < 4:
             #     for j in range(4):
