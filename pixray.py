@@ -1256,10 +1256,10 @@ def checkin(args, iter, losses):
     if cur_anim_index == len(anim_output_files) - 1:
         # save gif
         gif_output = make_gif(args, iter)
-        if IS_NOTEBOOK: # and iter % args.display_every == 0:
+        if IS_NOTEBOOK and iter % args.display_every == 0:
             clear_output()
             display.display(display.Image(open(gif_output,'rb').read()))
-    if IS_NOTEBOOK: # and iter % args.display_every == 0:
+    if IS_NOTEBOOK and iter % args.display_every == 0:
         if cur_anim_index is None or iter == 0:
             if args.display_clear:
                 clear_output()
