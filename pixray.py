@@ -430,7 +430,7 @@ class MakeCutouts(nn.Module):
 
         augmentations = []
         if global_aspect_width == 1:
-            # n_s = 0.95
+            n_s = 0.95
             # n_t = (1-n_s)/2
             # augmentations.append(MyRandomAffine(degrees=0, translate=(n_t, n_t), scale=(n_s, n_s), p=1.0, return_transform=True))
         elif global_aspect_width > 1:
