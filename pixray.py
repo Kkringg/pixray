@@ -505,7 +505,7 @@ class MakeCutouts(nn.Module):
             cutout_count = 0
             for cutout in cutouts:
                 TF.to_pil_image(cutout.cpu()).save(f"cutout_{cutout_count}_im_{cur_iteration:02d}_{spot}.png")
-                cutout_count++
+                cutout_count += 1
             if self.cutn == 1:
                 batch, transforms = self.augs_wide(torch.cat(cutouts[:], dim=0))
                 self.transforms = transforms
