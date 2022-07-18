@@ -502,6 +502,9 @@ class MakeCutouts(nn.Module):
             #         j_wide = j + self.cutn_zoom
             #         TF.to_pil_image(batch[j_wide].cpu()).save(f"cached_im_{cur_iteration:02d}_{j_wide:02d}_{spot}.png")
         else:
+            cutout_count = 0
+            for cutout in cutouts:
+                TF.to_pil_image(cutout.cpu()).save(f"cutout_{cutout_count}_im_{cur_iteration:02d}_{spot}.png")
             if self.cutn == 1:
                 batch, transforms = self.augs_wide(torch.cat(cutouts[:], dim=0))
                 self.transforms = transforms
@@ -525,7 +528,6 @@ class MakeCutouts(nn.Module):
             #         TF.to_pil_image(batch[j_wide].cpu()).save(f"live_im_{cur_iteration:02d}_{j_wide:02d}_{spot}.png")
 
         # print(batch.shape, self.transforms.shape)
-        TF.to_pil_image(batch.cpu()).save(f"batch_im_{cur_iteration:02d}_{spot}.png")
         
         if self.noise_fac:
             facs = batch.new_empty([self.cutn, 1, 1, 1]).uniform_(0, self.noise_fac)
