@@ -525,6 +525,7 @@ class MakeCutouts(nn.Module):
             #         TF.to_pil_image(batch[j_wide].cpu()).save(f"live_im_{cur_iteration:02d}_{j_wide:02d}_{spot}.png")
 
         # print(batch.shape, self.transforms.shape)
+        TF.to_pil_image(batch.cpu()).save(f"batch_im_{cur_iteration:02d}_{spot}.png")
         
         if self.noise_fac:
             facs = batch.new_empty([self.cutn, 1, 1, 1]).uniform_(0, self.noise_fac)
