@@ -32,7 +32,7 @@ class ResmemLoss(LossInterface):
 
     @staticmethod
     def add_settings(parser):
-        parser.add_argument("--symmetry_weight", type=float, help="how much symmetry is weighted in loss", default=1, dest='symmetry_weight')
+        parser.add_argument("--resmem_weight", type=float, help="weight of Resmem loss", default=1, dest='resmem_weight')
         return parser
    
     def get_loss1(self, cur_cutouts, out, args, globals=None, lossGlobals=None):
