@@ -183,6 +183,7 @@ class SLIP_Base():
         return text_embeddings.unsqueeze(1)
         
 BLIP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "BLIP")
+BLIP_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "BLIP/models")
 print(sys.path)
 print(SLIP_PATH)
 print(BLIP_PATH)
