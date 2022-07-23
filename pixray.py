@@ -487,7 +487,7 @@ class MakeCutouts(nn.Module):
 
             # if cur_iteration % 50 == 0 and _ == 0:
             # print(cutout.shape)
-            TF.to_pil_image(cutout[0].cpu()).save(f"cutout_im_{cur_iteration:02d}_{spot}.png")
+            # TF.to_pil_image(cutout[0].cpu()).save(f"cutout_im_{cur_iteration:02d}_{spot}.png")
 
             cutouts.append(cutout)
 
