@@ -716,8 +716,8 @@ def do_init(args):
         #test_params = 0.01 * torch.randn(*test_params_shape).cuda()
         
         #img1 = test_params[0]
-        save_image(test_shape, 'test_image.png')
-        save_image(test_shape_2, 'test_image_2.png') 
+        #save_image(test_shape, 'test_image.png')
+        #save_image(test_shape_2, 'test_image_2.png') 
         
         #test_imag_t = params.requires_grad_(True)
         
