@@ -509,7 +509,10 @@ class MakeCutouts(nn.Module):
             #     #cutout_rgb = cutout.convert("RGB")
             #     TF.to_pil_image(cutout[0].cpu()).save(f"cutout_{cutout_count}_im_{cur_iteration:02d}_{spot}.png")
             #     cutout_count += 1
-            if self.cutn == 1:
+            if args.all_cuts_zoom == True:
+                batch, transforms = self.augs_zoom(torch.cat(cutouts[:], dim=0))
+                self.transforms = transforms
+            elif self.cutn == 1:
                 batch, transforms = self.augs_wide(torch.cat(cutouts[:], dim=0))
                 self.transforms = transforms
             else:
