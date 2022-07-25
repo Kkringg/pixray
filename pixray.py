@@ -1869,7 +1869,8 @@ def setup_parser(vq_parser):
     vq_parser.add_argument("--output", type=str, help="Output filename", default="output.png", dest='output')
     vq_parser.add_argument("--outdir", type=str, help="Output file directory", default='outputs/%DATE%_%SEQ%', dest='outdir')
     vq_parser.add_argument("--all_cuts_zoom", type=str2bool, help="all cuts set to zoom", default=False, dest='all_cuts_zoom')
-
+    vq_parser.add_argument("--skip_affine", type=str2bool, help="skip affine transform on cuts", default=False, dest='skip_affine')
+    
     return vq_parser
 
 def process_args(vq_parser, namespace=None):
