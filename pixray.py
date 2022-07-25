@@ -412,7 +412,7 @@ def fetch_spot_indexes(sideX, sideY):
 # f[0].shape = [60,3]
 
 class MakeCutouts(nn.Module):
-    def __init__(self, cut_size, cutn, cut_pow=1.):
+    def __init__(self, cut_size, cutn, cut_pow=1., cuts_zoom=False):
         global global_aspect_width
 
         super().__init__()
@@ -421,6 +421,7 @@ class MakeCutouts(nn.Module):
         self.cutn_zoom = int(0.6*cutn)
         self.cut_pow = cut_pow
         self.transforms = None
+        self.cuts_zoom = cuts_zoom
 
         augmentations = []
         # if global_aspect_width != 1:
@@ -676,7 +677,7 @@ def do_init(args):
         cut_size = perceptor.input_resolution
         cutoutSizeTable[clip_model] = cut_size
         if not cut_size in cutoutsTable:    
-            make_cutouts = MakeCutouts(cut_size, args.num_cuts, cut_pow=args.cut_pow)
+            make_cutouts = MakeCutouts(cut_size, args.num_cuts, cut_pow=args.cut_pow, cuts_zoom=args.all_cuts_zoom)
             cutoutsTable[cut_size] = make_cutouts
 
     filters = None
