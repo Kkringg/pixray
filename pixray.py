@@ -412,7 +412,7 @@ def fetch_spot_indexes(sideX, sideY):
 # f[0].shape = [60,3]
 
 class MakeCutouts(nn.Module):
-    def __init__(self, cut_size, cutn, cut_pow=1., cuts_zoom=False):
+    def __init__(self, cut_size, cutn, cut_pow=1., cuts_zoom=False, skip_affine=False):
         global global_aspect_width
 
         super().__init__()
@@ -422,6 +422,7 @@ class MakeCutouts(nn.Module):
         self.cut_pow = cut_pow
         self.transforms = None
         self.cuts_zoom = cuts_zoom
+        self.skip_affine = skip_affine
 
         augmentations = []
         # if global_aspect_width != 1:
@@ -432,18 +433,19 @@ class MakeCutouts(nn.Module):
         self.augs_zoom = nn.Sequential(*augmentations)
 
         augmentations = []
-        if global_aspect_width == 1:
-            n_s = 0.95
-            n_t = (1-n_s)/2
-            augmentations.append(MyRandomAffine(degrees=0, translate=(n_t, n_t), scale=(n_s, n_s), p=1.0, return_transform=True))
-        elif global_aspect_width > 1:
-            n_s = 1/global_aspect_width
-            n_t = (1-n_s)/2
-            augmentations.append(MyRandomAffine(degrees=0, translate=(0, n_t), scale=(0.9*n_s, n_s), p=1.0, return_transform=True))
-        else:
-            n_s = global_aspect_width
-            n_t = (1-n_s)/2
-            augmentations.append(MyRandomAffine(degrees=0, translate=(n_t, 0), scale=(0.9*n_s, n_s), p=1.0, return_transform=True))
+        if self.skip_affine == False:
+            if global_aspect_width == 1:
+                n_s = 0.95
+                n_t = (1-n_s)/2
+                augmentations.append(MyRandomAffine(degrees=0, translate=(n_t, n_t), scale=(n_s, n_s), p=1.0, return_transform=True))
+            elif global_aspect_width > 1:
+                n_s = 1/global_aspect_width
+                n_t = (1-n_s)/2
+                augmentations.append(MyRandomAffine(degrees=0, translate=(0, n_t), scale=(0.9*n_s, n_s), p=1.0, return_transform=True))
+            else:
+                n_s = global_aspect_width
+                n_t = (1-n_s)/2
+                augmentations.append(MyRandomAffine(degrees=0, translate=(n_t, 0), scale=(0.9*n_s, n_s), p=1.0, return_transform=True))
 
         # augmentations.append(K.CenterCrop(size=(self.cut_size,self.cut_size), p=1.0, cropping_mode="resample", return_transform=True))
         augmentations.append(K.CenterCrop(size=self.cut_size, cropping_mode='resample', p=1.0, return_transform=True))
@@ -677,7 +679,7 @@ def do_init(args):
         cut_size = perceptor.input_resolution
         cutoutSizeTable[clip_model] = cut_size
         if not cut_size in cutoutsTable:    
-            make_cutouts = MakeCutouts(cut_size, args.num_cuts, cut_pow=args.cut_pow, cuts_zoom=args.all_cuts_zoom)
+            make_cutouts = MakeCutouts(cut_size, args.num_cuts, cut_pow=args.cut_pow, cuts_zoom=args.all_cuts_zoom, skip_affine=args.skip_affine)
             cutoutsTable[cut_size] = make_cutouts
 
     filters = None
