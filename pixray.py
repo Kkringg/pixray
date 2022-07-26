@@ -418,7 +418,7 @@ class MakeCutouts(nn.Module):
         super().__init__()
         self.cut_size = cut_size
         self.cutn = cutn
-        self.cutn_zoom = int(0.6*cutn)
+        self.cutn_zoom = int(0.9*cutn)
         self.cut_pow = cut_pow
         self.transforms = None
         self.cuts_zoom = cuts_zoom
