@@ -584,6 +584,8 @@ def rebuild_optimisers(args):
             opt = DiffGrad(to_optimize, lr=dropped_learning_rate)      # LR=2+?
         elif args.optimiser == "AdamP":
             opt = AdamP(to_optimize, lr=dropped_learning_rate)     # LR=2+?
+        elif args.optimiser == "RProp":
+            opt = RProp(to_optimize, lr=dropped_learning_rate)
         # elif args.optimiser == "RAdam":
         #     opt = RAdam(to_optimize, lr=dropped_learning_rate)     # LR=2+?
 
