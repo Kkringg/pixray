@@ -30,7 +30,7 @@ from torchvision.utils import save_image
 torch.backends.cudnn.benchmark = False		# NR: True is a bit faster, but can lead to OOM. False is more deterministic.
 #torch.use_deterministic_algorithms(True)		# NR: grid_sampler_2d_backward_cuda does not have a deterministic implementation
 
-from torch_optimizer import DiffGrad, AdamP
+from torch_optimizer import DiffGrad, AdamP, Lars
 from perlin_numpy import generate_fractal_noise_2d
 from util import str2bool, get_file_path, emit_filename, split_pipes, parse_unit
 
@@ -585,7 +585,9 @@ def rebuild_optimisers(args):
         elif args.optimiser == "AdamP":
             opt = AdamP(to_optimize, lr=dropped_learning_rate)     # LR=2+?
         elif args.optimiser == "RProp":
-            opt = RProp(to_optimize, lr=dropped_learning_rate)
+            opt = optim.RProp(to_optimize, lr=dropped_learning_rate)
+        elif args.optimiser == "Lars":
+            opt = Lars(to_optimize, lr=dropped_learning_rate)
         # elif args.optimiser == "RAdam":
         #     opt = RAdam(to_optimize, lr=dropped_learning_rate)     # LR=2+?
 
