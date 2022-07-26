@@ -21,7 +21,8 @@ Pillow==8.3.2
 PyYAML==5.4.1
 scikit_learn==1.0
 scikit-image==0.18.3
-torch_optimizer==0.1.0
+#torch_optimizer==0.1.0
+torch_optimizer
 torch-tools==0.1.5
 
 # can use CompVis/taming-transformers when https://github.com/CompVis/taming-transformers/pull/81 is merged
