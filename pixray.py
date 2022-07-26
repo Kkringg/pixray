@@ -590,6 +590,8 @@ def rebuild_optimisers(args):
         #     opt = Lars(to_optimize, lr=dropped_learning_rate)
         elif args.optimiser == "RAdam":
             opt = optim.RAdam(to_optimize, lr=dropped_learning_rate)     # LR=2+?
+        elif args.optimiser == "LBFGS":
+            opt = optim.LBFGS(to_optimize, lr=dropped_learning_rate)
 
         new_opts = [opt]
 
