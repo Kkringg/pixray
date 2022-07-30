@@ -834,6 +834,7 @@ def do_init(args):
             drawer.init_from_tensor(init_tensor, cur_it=0)
 
     else:
+        print("No init_image or init_noise.")
         drawer.init_from_tensor(init_tensor=None, cur_it=0)
         # this is the old vqgan version [need to patch vqgan to do this?]
         # drawer.rand_init(toksX, toksY)
