@@ -1519,7 +1519,8 @@ def re_average_z(args):
     cur_z_image = cur_z_image.convert('RGB')
     if overlay_image_rgba:
         # print("applying overlay image")
-        cur_z_image.paste(overlay_image_rgba, (0, 0), mask=overlay_image_rgba)
+        # cur_z_image.paste(overlay_image_rgba, (0, 0), mask=overlay_image_rgba)
+        cur_z_image.paste(overlay_image_rgba, (0, 0))
         # cur_z_image.save("overlaid.png")
     cur_z_image = cur_z_image.resize((gside_X, gside_Y), Image.LANCZOS)
     drawer.reapply_from_tensor(TF.to_tensor(cur_z_image).to(device).unsqueeze(0) * 2 - 1)
