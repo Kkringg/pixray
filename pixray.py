@@ -818,7 +818,7 @@ def do_init(args):
             starting_image.save("starting_image.png")
             starting_tensor = TF.to_tensor(starting_image)
             init_tensor = starting_tensor.to(device).unsqueeze(0)
-            drawer.init_from_tensor(init_tensor * 2 - 1)
+            drawer.init_from_tensor(init_tensor * 2 - 1, cur_iteration)
             # starting_image = init_image_rgba_list[0]            --original
             # save_image(starting_image,"init_image_tensor.png")  --original
             # drawer.init_from_tensor(init_image_tensor * 2 - 1)  --original
@@ -829,11 +829,11 @@ def do_init(args):
             save_image(starting_tensor,"starting_image_tensor.png")
             init_tensor = starting_tensor.to(device).unsqueeze(0)
             save_image(init_tensor,"starting_image_tensor_unsqueezed.png")
-            drawer.init_from_tensor(init_tensor * 2 - 1)
+            drawer.init_from_tensor(init_tensor * 2 - 1, cur_iteration)
             # drawer.init_from_tensor(init_tensor)
 
     else:
-        drawer.init_from_tensor(init_tensor=None)
+        drawer.init_from_tensor(init_tensor=None, cur_iteration)
         # this is the old vqgan version [need to patch vqgan to do this?]
         # drawer.rand_init(toksX, toksY)
 
