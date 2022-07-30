@@ -57,7 +57,7 @@ class FftDrawer(DrawingInterface):
         #test_img = TF.to_pil_image(params.cpu())
         #imageio.imwrite('test_image.png', np.array(test_img))
         
-    def init_from_tensor(self, init_tensor):
+    def init_from_tensor(self, init_tensor, cur_it):
         shape = [1, 3, self.canvas_height, self.canvas_width]
         resume = None
         if init_tensor is not None:
