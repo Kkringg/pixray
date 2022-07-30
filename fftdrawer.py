@@ -112,8 +112,8 @@ class FftDrawer(DrawingInterface):
         self.opts = [optimizer]
         return self.opts
 
-    def reapply_from_tensor(self, new_tensor):
-        self.init_from_tensor(new_tensor)
+    def reapply_from_tensor(self, new_tensor, cur_it):
+        self.init_from_tensor(new_tensor, cur_it)
 
     def get_z_from_tensor(self, ref_tensor):
         return None
