@@ -825,7 +825,8 @@ def do_init(args):
             z_orig = drawer.get_z_copy()
         else:
             starting_image.save("starting_image_no_init_image.png")
-            starting_tensor = TF.to_tensor(starting_image)
+            # starting_tensor = TF.to_tensor(starting_image)
+            starting_tensor = TF.to_tensor(noise_image)
             save_image(starting_tensor,"starting_image_tensor.png")
             init_tensor = starting_tensor.to(device).unsqueeze(0)
             save_image(init_tensor,"starting_image_tensor_unsqueezed.png")
