@@ -1569,10 +1569,10 @@ def train(args, cur_it):
             if cur_it == 1:
                 cur_z_image1 = drawer.to_image()
                 cur_z_image1.save("BeforeRGBA.png")
+                if overlay_image_rgba:
+                    cur_z_image1.paste(overlay_image_rgba, (0, 0), mask=overlay_image_rgba)
+                    cur_z_image1.save("BeforeRGBAPasted.png")
             re_average_z(args)
-            if cur_it == 1:
-                cur_z_image2 = drawer.to_image()
-                cur_z_image2.save("AfterRGBA.png")
 
         # num_batches = args.batches * (num_loss_drop + 1)
         num_batches = args.batches
