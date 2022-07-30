@@ -771,6 +771,7 @@ def do_init(args):
         noise_image = img.copy()
         noise_image = noise_image.convert('RGBA')
         noise_image = noise_image.resize((sideX, sideY), Image.LANCZOS)
+        noise_image.save("Noise_Image.png")
         starting_image = img.convert('RGB')
         starting_image = starting_image.resize((sideX, sideY), Image.LANCZOS)
 
