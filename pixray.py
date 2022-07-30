@@ -1559,7 +1559,7 @@ def train(args, cur_it):
                 num_anim_frames = len(init_image_rgba_list)
                 init_anim_z(args, init_image_rgba_list[cur_anim_index % num_anim_frames])
 
-        if apply_overlay(args, cur_it) or args.overlay_every == 1:
+        if apply_overlay(args, cur_it) or args.overlay_every == 1 and cur_it >= 1:
             if cur_anim_index is not None:
                 num_anim_frames = len(overlay_image_rgba_list)
                 overlay_image_rgba = overlay_image_rgba_list[cur_anim_index % num_anim_frames]
