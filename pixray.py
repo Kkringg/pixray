@@ -823,7 +823,7 @@ def do_init(args):
             # drawer.init_from_tensor(init_image_tensor * 2 - 1)  --original
             z_orig = drawer.get_z_copy()
         else:
-            starting_image.save("starting_image.png")
+            starting_image.save("starting_image_no_init_image.png")
             starting_tensor = TF.to_tensor(starting_image)
             init_tensor = starting_tensor.to(device).unsqueeze(0)
             # drawer.init_from_tensor(init_tensor * 2 - 1)
