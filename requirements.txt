@@ -48,7 +48,7 @@ git+https://github.com/fbcotter/pytorch_wavelets
 
 # main aphantasia library
 # git+https://github.com/pixray/aphantasia@7e6b3bb
-git+https://github.com/pixray/aphantasia
+git+https://github.com/kkringg/aphantasia
 
 # slip
 timm
