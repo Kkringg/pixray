@@ -1516,8 +1516,7 @@ def re_average_z(args):
 
     # old_z = z.clone()
     cur_z_image = drawer.to_image()
-    if cur_it == 1:
-        cur_z_image.save("BeforeRGBA.png")
+    #    cur_z_image.save("BeforeRGBA.png")
     cur_z_image = cur_z_image.convert('RGBA')
     if overlay_image_rgba:
         cur_z_image.save("pre-overlaid.png")
@@ -1567,6 +1566,8 @@ def train(args, cur_it):
             if cur_anim_index is not None:
                 num_anim_frames = len(overlay_image_rgba_list)
                 overlay_image_rgba = overlay_image_rgba_list[cur_anim_index % num_anim_frames]
+            if cur_it == 1:
+                cur_z_image.save("BeforeRGBA.png")
             re_average_z(args)
 
         # num_batches = args.batches * (num_loss_drop + 1)
