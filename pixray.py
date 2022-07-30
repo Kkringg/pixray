@@ -826,9 +826,8 @@ def do_init(args):
             starting_image.save("starting_image.png")
             starting_tensor = TF.to_tensor(starting_image)
             init_tensor = starting_tensor.to(device).unsqueeze(0)
-            drawer.init_from_tensor(init_tensor * 2 - 1)
-            cur_z_image_starting = drawer.to_image()
-            cur_z_image_starting.save("starting_image_after_init.png")
+            # drawer.init_from_tensor(init_tensor * 2 - 1)
+            drawer.init_from_tensor(init_tensor)
 
     else:
         drawer.init_from_tensor(init_tensor=None)
