@@ -1572,6 +1572,8 @@ def train(args, cur_it):
                 if overlay_image_rgba:
                     cur_z_image1.paste(overlay_image_rgba, (0, 0), mask=overlay_image_rgba)
                     cur_z_image1.save("BeforeRGBAPasted.png")
+                    cur_z_image1 = cur_z_image1.convert('RGBA')
+                    cur_z_image1.save("AfterRGBAPasted.png")
             if cur_it == 2:
                 cur_z_image2 = drawer.to_image()
                 cur_z_image2.save("AfterFirstPass.png")
