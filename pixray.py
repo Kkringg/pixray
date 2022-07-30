@@ -845,7 +845,7 @@ def do_init(args):
         for overlay_image in overlay_images:
             overlay_image_rgba = overlay_image.convert('RGBA')
             overlay_image_rgba = overlay_image_rgba.resize((sideX, sideY), Image.LANCZOS)
-            if args.overlay_alpha && args.overlay_alpha > 0:
+            if args.overlay_alpha and args.overlay_alpha > 0:
                 overlay_image_rgba.putalpha(args.overlay_alpha)
             overlay_image_rgba_list.append(overlay_image_rgba)
 
