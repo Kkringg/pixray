@@ -1516,7 +1516,8 @@ def re_average_z(args):
 
     # old_z = z.clone()
     cur_z_image = drawer.to_image()
-    cur_z_image.save("BeforeRGBA.png")
+    if cur_it == 1:
+        cur_z_image.save("BeforeRGBA.png")
     cur_z_image = cur_z_image.convert('RGBA')
     if overlay_image_rgba:
         cur_z_image.save("pre-overlaid.png")
