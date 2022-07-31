@@ -1596,6 +1596,9 @@ def train(args, cur_it):
                     cur_z_image1.paste(overlay_image_rgba, (0, 0), mask=overlay_image_rgba)
                     cur_z_image1.save("res_init.png")
                     cur_z_image1.save(f"res_init_{cur_iteration:03d}.png")
+                    cur_z_tensor = TF.to_tensor(cur_z_image1)
+                    new_tensor = cur_z_tensor.to(device).unsqueeze(0)
+                    drawer.reapply_from_tensor(new_tensor * 2 - 1)
                     #_{cur_iteration:03d}
             else:        
                 re_average_z(args, cur_it)
