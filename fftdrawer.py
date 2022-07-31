@@ -122,7 +122,8 @@ class FftDrawer(DrawingInterface):
         img = np.transpose(img, (1, 2, 0))
         img = np.clip(img, 0, 1)
         img = np.uint8(img * 255)
-        pimg = PIL.Image.fromarray(img, mode="RGB")
+        #pimg = PIL.Image.fromarray(img, mode="RGB")
+        pimg = PIL.Image.fromarray(img, mode="RGBA")
         return pimg
 
     def clip_z(self):
