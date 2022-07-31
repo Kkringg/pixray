@@ -1537,8 +1537,8 @@ def re_average_z(args, cur_it):
         cur_z_image.save("overlaid.png")
     cur_z_image = cur_z_image.resize((gside_X, gside_Y), Image.LANCZOS)
     cur_it = cur_iteration
-    #drawer.reapply_from_tensor(TF.to_tensor(cur_z_image).to(device).unsqueeze(0) * 2 - 1, cur_it)
-    drawer.reapply_from_tensor(TF.to_tensor(cur_z_image).to(device).unsqueeze(0), cur_it)
+    drawer.reapply_from_tensor(TF.to_tensor(cur_z_image).to(device).unsqueeze(0) * 2 - 1, cur_it)
+    # drawer.reapply_from_tensor(TF.to_tensor(cur_z_image).to(device).unsqueeze(0), cur_it)
 
 def init_anim_z(args, init_rgba):
     global gside_X, gside_Y
