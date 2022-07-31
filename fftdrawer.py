@@ -57,7 +57,7 @@ class FftDrawer(DrawingInterface):
         #test_img = TF.to_pil_image(params.cpu())
         #imageio.imwrite('test_image.png', np.array(test_img))
         
-    def init_from_tensor(self, init_tensor, cur_it)
+    def init_from_tensor(self, init_tensor, cur_it):
         self.params, self.image_f = (
             self.encode_image(init_tensor, cur_it) 
         )
