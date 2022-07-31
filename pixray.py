@@ -1590,7 +1590,13 @@ def train(args, cur_it):
             if cur_it == 2:
                 cur_z_image2 = drawer.to_image()
                 cur_z_image2.save("AfterFirstPass.png")
-            re_average_z(args, cur_it)
+            if args.drawer = "fft":
+                cur_z_image1 = drawer.to_image()
+                if overlay_image_rgba:
+                    cur_z_image1.paste(overlay_image_rgba, (0, 0), mask=overlay_image_rgba)
+                    cur_z_image1.save("res_init.png")
+            else:        
+                re_average_z(args, cur_it)
 
         # num_batches = args.batches * (num_loss_drop + 1)
         num_batches = args.batches
