@@ -127,8 +127,8 @@ class FftDrawer(DrawingInterface):
         if cur_iteration < 0:
             return self.img
 
-        #img = self.image_f(contrast=0.9)
-        img = self.image_f(contrast=1.0)
+        img = self.image_f(contrast=0.9)
+        #img = self.image_f(contrast=1.0)
         self.img = img
         return img
 
