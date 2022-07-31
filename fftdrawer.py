@@ -63,6 +63,8 @@ class FftDrawer(DrawingInterface):
         if init_tensor is not None:
             if cur_it == 0:
                 save_image(init_tensor, "res_init_1.png")
+            if cur_it == 1:
+                save_image(init_tensor, "res_init_2.png")
             save_image(init_tensor, "res_init.png")
             resume = "res_init.png"
         if self.fft_use == "dwt":
