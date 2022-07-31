@@ -833,6 +833,8 @@ def do_init(args):
             save_image(init_tensor,"starting_image_tensor_unsqueezed.png")
             # drawer.init_from_tensor(init_tensor * 2 - 1, cur_it=0)
             drawer.init_from_tensor(init_tensor, cur_it=0)
+            after_image = drawer.to_image()
+            after_image.save("after_image_no_init_image.png")
 
     else:
         print("No init_image or init_noise.")
