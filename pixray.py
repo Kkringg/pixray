@@ -1532,6 +1532,8 @@ def re_average_z(args, cur_it):
         # print("applying overlay image")
         cur_z_image.paste(overlay_image_rgba, (0, 0), mask=overlay_image_rgba)
         # cur_z_image.paste(overlay_image_rgba, (0, 0))
+        if cur_it == 1:
+            cur_z_image.save("1st_Iter_overlaid.png")
         cur_z_image.save("overlaid.png")
     cur_z_image = cur_z_image.resize((gside_X, gside_Y), Image.LANCZOS)
     cur_it = cur_iteration
