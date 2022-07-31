@@ -72,7 +72,7 @@ class FftDrawer(DrawingInterface):
             if cur_it == 1:
                 save_image(init_tensor, "res_init_2.png")
             save_image(init_tensor, "res_init.png")
-            resume = "res_init.png"
+            # resume = "res_init.png"
         if self.fft_use == "dwt":
             print("Using DWT instead of FFT")
             params, image_f, sz = dwt_image(shape, self.wave, self.sharp, self.colors, resume=resume)
