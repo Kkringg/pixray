@@ -73,7 +73,8 @@ class FftDrawer(DrawingInterface):
         elif self.fft_use == "pixel":
             params, image_f, sz = pixel_image(shape, sd=1, resume=resume)
         elif self.fft_use == "fft":
-            params, image_f, sz = fft_image(shape, sd=0.01, decay_power=self.decay, resume=resume)            
+            params, image_f, sz = fft_image(shape, sd=0.01, decay_power=self.decay, resume=resume)    
+            save_image(params, "params_example.png") 
         else:
             raise ValueError(f"fft drawer does not know how to apply fft_use={self.fft_use}")
         self.params = params
