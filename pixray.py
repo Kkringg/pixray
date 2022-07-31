@@ -1516,16 +1516,18 @@ def ascend_txt(args):
 
     return result
 
-def re_average_z(args):
+def re_average_z(args, cur_it):
     global gside_X, gside_Y
     global device, drawer
 
     # old_z = z.clone()
     cur_z_image = drawer.to_image()
-    #    cur_z_image.save("BeforeRGBA.png")
+    if cur_it == 1:
+        cur_z_image.save("BeforeRGBA.png")
     cur_z_image = cur_z_image.convert('RGBA')
     if overlay_image_rgba:
-        cur_z_image.save("pre-overlaid.png")
+        if cur_it == 1:
+            cur_z_image.save("1st_Iter_pre-overlaid.png")
         # print("applying overlay image")
         cur_z_image.paste(overlay_image_rgba, (0, 0), mask=overlay_image_rgba)
         # cur_z_image.paste(overlay_image_rgba, (0, 0))
@@ -1584,7 +1586,7 @@ def train(args, cur_it):
             if cur_it == 2:
                 cur_z_image2 = drawer.to_image()
                 cur_z_image2.save("AfterFirstPass.png")
-            re_average_z(args)
+            re_average_z(args, cur_it)
 
         # num_batches = args.batches * (num_loss_drop + 1)
         num_batches = args.batches
