@@ -1595,7 +1595,7 @@ def train(args, cur_it):
                 if overlay_image_rgba:
                     cur_z_image1.paste(overlay_image_rgba, (0, 0), mask=overlay_image_rgba)
                     cur_z_image1.save("res_init.png")
-                    cur_z_image1.save("res_init_{cur_iteration:03d}.png")
+                    cur_z_image1.save(f"res_init_{cur_iteration:03d}.png")
                     #_{cur_iteration:03d}
             else:        
                 re_average_z(args, cur_it)
