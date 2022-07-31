@@ -1573,7 +1573,7 @@ def train(args, cur_it):
             if cur_anim_index is not None:
                 num_anim_frames = len(overlay_image_rgba_list)
                 overlay_image_rgba = overlay_image_rgba_list[cur_anim_index % num_anim_frames]
-            if cur_it == 0:
+            if cur_it == 1:
                 cur_z_image1 = drawer.to_image()
                 cur_z_image1.save("BeforeRGBA.png")
                 if overlay_image_rgba:
@@ -1581,7 +1581,7 @@ def train(args, cur_it):
                     cur_z_image1.save("BeforeRGBAPasted.png")
                     cur_z_image1 = cur_z_image1.convert('RGBA')
                     cur_z_image1.save("AfterRGBAPasted.png")
-            if cur_it == 1:
+            if cur_it == 2:
                 cur_z_image2 = drawer.to_image()
                 cur_z_image2.save("AfterFirstPass.png")
             re_average_z(args)
