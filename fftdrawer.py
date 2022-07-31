@@ -57,7 +57,13 @@ class FftDrawer(DrawingInterface):
         #test_img = TF.to_pil_image(params.cpu())
         #imageio.imwrite('test_image.png', np.array(test_img))
         
-    def init_from_tensor(self, init_tensor, cur_it):
+    def init_from_tensor(self, init_tensor, cur_it)
+        self.params, self.image_f = (
+            self.encode_image(init_tensor, cur_it) 
+        )
+        
+    def encode_image(self, init_tensor, cur_it):    
+    # def init_from_tensor(self, init_tensor, cur_it):
         shape = [1, 3, self.canvas_height, self.canvas_width]
         resume = None
         if init_tensor is not None:
@@ -77,8 +83,11 @@ class FftDrawer(DrawingInterface):
             # save_image(params, "params_example.png") 
         else:
             raise ValueError(f"fft drawer does not know how to apply fft_use={self.fft_use}")
-        self.params = params
-        self.image_f = to_valid_rgb(image_f, colors=1.5)
+        # self.params = params
+        # self.image_f = to_valid_rgb(image_f, colors=1.5)
+        
+        image_f = to_valid_rgb(image_f, colors=1.5)
+        return params, image_f
         
     def get_opts(self, decay_divisor=1):
         # Optimizers
@@ -87,7 +96,10 @@ class FftDrawer(DrawingInterface):
         return self.opts
 
     def reapply_from_tensor(self, new_tensor, cur_it):
-        self.init_from_tensor(new_tensor, cur_it)
+        # self.init_from_tensor(new_tensor, cur_it)
+        params, *_ = self.encode_image(new_tensor, cur_it)
+        for old_param, new_param in zip(self.params, params):
+            old_param.data = new_param.data
 
     def get_z_from_tensor(self, ref_tensor):
         return None
