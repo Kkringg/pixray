@@ -819,6 +819,7 @@ def do_init(args):
             starting_image.save("starting_image.png")
             starting_tensor = TF.to_tensor(starting_image)
             init_tensor = starting_tensor.to(device).unsqueeze(0)
+            save_image(init_tensor,"res_init.png")
             drawer.init_from_tensor(init_tensor * 2 - 1, cur_it=0)
             # starting_image = init_image_rgba_list[0]            --original
             # save_image(starting_image,"init_image_tensor.png")  --original
