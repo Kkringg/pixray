@@ -1594,7 +1594,7 @@ def train(args, cur_it):
             #    cur_z_image2 = drawer.to_image()
             #    cur_z_image2.save("AfterFirstPass.png")
             if args.drawer == "fft":
-                cur_z_image1 = drawer.to_image()
+                cur_z_image1 = drawer.to_image().convert('RGBA')
                 if overlay_image_rgba:
                     cur_z_image1.paste(overlay_image_rgba, (0, 0), mask=overlay_image_rgba)
                     cur_z_image1.save("res_init.png")
