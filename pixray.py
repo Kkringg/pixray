@@ -1560,6 +1560,7 @@ def apply_overlay(args, cur_it):
 
 def train(args, cur_it):
     global drawer, opts
+    global gside_X, gside_Y
     global best_loss, best_iter, best_z, num_loss_drop, max_loss_drops, iter_drop_delay
     global overlay_image_rgba, overlay_image_rgba_list, cur_anim_index, init_image_rgba_list
     
