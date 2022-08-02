@@ -1529,6 +1529,7 @@ def re_average_z(args, cur_it):
     if cur_it == 1:
         cur_z_image.save("1st_Iter_BeforeRGBA.png")
     cur_z_image = cur_z_image.convert('RGBA')
+    cur_z_image = cur_z_image.resize((gside_X, gside_Y), Image.LANCZOS)
     if overlay_image_rgba:
         if cur_it == 1:
             cur_z_image.save("1st_Iter_pre-overlaid.png")
