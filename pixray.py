@@ -803,7 +803,7 @@ def do_init(args):
                 init_image_rgba = init_image.convert('RGBA')
                 init_image_rgba = init_image_rgba.resize((sideX, sideY), Image.LANCZOS)
                 top_image = init_image_rgba.copy()
-                if args.init_image_alpha and args.init_image_alpha >= 0:
+                if args.init_image_alpha and args.init_image_alpha > 0:
                     top_image.putalpha(args.init_image_alpha)
                 top_image_list.append(top_image)
                 cur_start_image = starting_image.copy()
