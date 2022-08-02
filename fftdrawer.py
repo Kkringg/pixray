@@ -97,7 +97,9 @@ class FftDrawer(DrawingInterface):
 
     def reapply_from_tensor(self, new_tensor, cur_it):
         # self.init_from_tensor(new_tensor, cur_it)
-        params, *_ = self.encode_image(new_tensor, cur_it)
+        params, self.image_f = (
+            self.encode_image(new_tensor, cur_it)
+        )
         for old_param, new_param in zip(self.params, params):
             old_param.data = new_param.data
 
